@@ -1,0 +1,51 @@
+class MyHashMap {
+public:
+    /** Initialize your data structure here. */
+    vector<vector<int>>hash_map;
+    MyHashMap() {
+        
+    }
+    
+    /** value will always be non-negative. */
+    void put(int key, int value) {
+        bool found = false;
+        for(int i = 0; i < hash_map.size(); i++) {
+            if(hash_map[i][0] == key) {
+                found = true;
+                hash_map[i][1]=value;
+                break;
+            }
+        }
+        if(!found) {
+            hash_map.push_back({key,value});
+        }
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    int get(int key) {
+        for(int i = 0; i < hash_map.size(); i++) {
+            if(hash_map[i][0] == key) {
+                return hash_map[i][1];
+            }
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    void remove(int key) {
+        for(int i = 0; i < hash_map.size(); i++) {
+            if(hash_map[i][0] == key) {
+                hash_map.erase(hash_map.begin()+i); 
+                break;
+            }
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
