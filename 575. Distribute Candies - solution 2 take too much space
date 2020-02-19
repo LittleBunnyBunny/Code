@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int distributeCandies(vector<int>& candies) {
+        std::unordered_set<int> set;
+        int n = candies.size();
+        for(int i = 0; i < n; ++i) {
+            set.insert(candies[i]); 
+        }
+        if(set.size()< n/2) {
+            return set.size();
+        } else {
+            return n/2;
+        }
+    }
+};
