@@ -1,0 +1,12 @@
+bool canPermutePalindrome(string s) {
+        unordered_map<char,int> map;
+        for(auto i:s){
+            if(map.count(i)){
+                map[i]--;
+                if(map[i]==0) map.erase(i);
+            }
+            else
+                map[i]++;
+        }
+        return map.size()<=1;
+    }
