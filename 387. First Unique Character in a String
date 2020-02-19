@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int firstUniqChar(string s) {
+        std::unordered_map<char, int> map;
+        int n = s.size();
+        char char_arr[n + 1];
+        strcpy(char_arr, s.c_str());
+        for(int i = 0; i < n; ++i) {
+            map[char_arr[i]]++;
+        }
+        
+        for(int i = 0; i < n; ++i) {
+            if(map[char_arr[i]] == 1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
