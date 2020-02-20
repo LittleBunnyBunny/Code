@@ -1,0 +1,20 @@
+public:
+    int numJewelsInStones(string J, string S) {
+        std::unordered_map<char,int> map;
+        for(char j:J) {
+            map[j]++;
+        }
+        int ans = 0;
+        for(char s:S) {
+            if(map.count(s)) {
+                ans++;
+            }
+        }
+        
+        /*for(int i = 0; i < set.size(); ++i) {
+            cout << set[i] << endl;
+        }
+        */
+        return ans;
+    }
+};
