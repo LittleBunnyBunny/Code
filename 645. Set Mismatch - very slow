@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        std::unordered_map<int, int> map;
+        for(int i = 0; i < nums.size(); ++i) {
+            map[nums[i]]++;
+        }
+        int dup = 0;
+        int missing = 0;
+        for(int i = 1; i < nums.size() + 1; ++i) {
+            if(map.count(i)) {
+                if(map[i] == 2) {
+                    dup = i;
+                }
+            } else {
+                missing = i;
+            }
+        }
+        std::vector<int> ans;
+        ans.push_back(dup);
+        ans.push_back(missing);
+        return ans;
+    }
+};
