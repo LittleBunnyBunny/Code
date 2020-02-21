@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> merge(vector<int> nums1, vector<int> nums2) {
+        std::vector<int> result;
+        int i = 0, j = 0;
+        
+        while(i < nums1.size() && j < nums2.size()) {
+            if(nums1[i] <= nums2[j]) {
+                result.push_back(nums1[i]);
+                i++;
+            } else {
+                result.push_back(nums2[j]);
+                j++;
+            }
+        }
+        while (i < nums1.size()) { 
+            result.push_back(nums1[i]);
+            i++; 
+        }         
+        while (j < nums2.size()) {
+            result.push_back(nums2[j]);
+            j++; 
+        }
+        return result;
+    }
+    
+    vector<int> helper(vector<int> nums, int left, int right) {
+        vector<int> left_sorted;
+        vector<int> right_sorted;
+        if(left < right) {
+            int middle = left + (right - left) / 2; 
+            left_sorted = helper(nums, left, middle);
+            right_sorted = helper(nums, middle + 1, right);
+            return merge(left_sorted, right_sorted);
+        }
+        vector<int> v1;
+        v1.push_back(nums[left]);
+        return v1;
+    }
+    
+    int maxSubArray(vector<int>& nums) {
+        int nums_size = nums.size();  
+        vector<int> ans;
+        ans = helper(nums, 0, nums_size - 1);
+        for(int i = 0; i < nums_size; i++) {
+            cout << ans[i];
+        }
+        //printArray(nums, nums_size); 
+        return 0; 
+    }
+};
