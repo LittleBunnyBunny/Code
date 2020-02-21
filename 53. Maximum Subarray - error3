@@ -1,0 +1,61 @@
+class Solution {
+public:
+    void merge(vector<int>& nums, int left, int middle, int right) {
+        int nleft = middle - left + 1;
+        int nright = right - middle;
+        std::vector<int> leftArrTemp(nleft + 1);
+        std::vector<int> rightArrTemp(nright + 1);
+        for(int i = 0; i < nleft; i++) {
+            leftArrTemp[i] = nums[left + i];
+        }
+        for(int i = 0; i < nright; i++) {
+            rightArrTemp[i] = nums[middle + 1 + i];
+        }
+        int i = 0, j = 0, index = left;
+        while(i < nleft && j < nright) {
+            if(leftArrTemp[i] <= rightArrTemp[i]) {
+                nums[index] = leftArrTemp[i];
+                i++;
+            } else {
+                nums[index] = rightArrTemp[j];
+                j++;
+            }
+            index++;
+        }
+        
+        while (i < nleft) 
+        { 
+            nums[index] = leftArrTemp[i]; 
+            i++; 
+            index++; 
+        } 
+
+        while (j < nright) {
+            nums[index] = rightArrTemp[j]; 
+            j++; 
+            index++; 
+        } 
+    }
+
+    void mergeSort(vector<int>& nums, int left, int right) {
+        if(left < right) {
+            int middle = left + (right-left)/2;
+            mergeSort(nums, left, middle);
+            mergeSort(nums, middle + 1, right);
+            merge(nums, left, middle, right);
+        }
+    }
+
+    void printArray(vector<int>& nums, int size) {
+        for(int i = 0; i < size; ++i){
+            cout << nums[i];
+        }
+    }
+
+    int maxSubArray(vector<int>& nums) {
+        int nums_size = nums.size();   
+        mergeSort(nums, 0, nums_size - 1);
+        printArray(nums, nums_size); 
+        return 0; 
+    }
+};
