@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int dominantIndex(vector<int>& nums) {
+        int largest = 0, secLarge = 0, index = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            if(nums[i] > largest) {
+                secLarge = largest;
+                largest = nums[i];
+                index = i;
+            } else if (nums[i] > secLarge) {
+                secLarge = nums[i];
+            }
+        }
+        cout << secLarge;
+        if (largest / 2 >= secLarge || secLarge == 0) {
+            return index;
+        } else {
+            return -1;
+        }
+    }
+};
