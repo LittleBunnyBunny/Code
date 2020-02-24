@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int helper (int num, vector<int>& nums) {
+        int first = 0, last = 0, i, j;
+        for (i = 0; i < nums.size(); ++i) {
+            if (nums[i] == num) {
+                first = i;
+                break;
+            }
+        }
+        for (j = nums.size()-1; j > i; --j) {
+            if (nums[j] == num) {
+                last = j;
+                break;
+            }
+        }
+        cout << last << first;
+        return last - first + 1;
+    }
+    
+    int findShortestSubArray(vector<int>& nums) {
+        if (nums.size() == 0) {
+            return 0;
+        }
+        
+        if (nums.size() == 1) {
+            return 1;
+        }
+        std:unordered_map<int,int> map;        
+        int degree = 0;
+        for (int i = 0; i < nums.size(); ++i) {
+            map[nums[i]]++;
+        }
+        for (auto it = map.begin(); it != map.end(); ++it) {
+            if (it -> second > degree) {
+                degree = it -> second;
+            }
+        }
+        vector<int> totalDegrees;
+        for (auto it = map.begin(); it != map.end(); ++it) {
+            if (it -> second == degree) {
+                totalDegrees.push_back(it -> first);
+                //cout << it -> first << endl;
+            }
+        }
+        if (degree == 1) {
+            return 1;
+        }
+        vector<int> length;
+        for (int i = 0; i < totalDegrees.size(); ++i) {
+            //cout << totalDegrees[0] << totalDegrees[1];
+            length.push_back(helper(totalDegrees[i], nums));
+        }
+        
+        int ans = *min_element(length.begin(), length.end());
+        return ans;
+    }
+};
