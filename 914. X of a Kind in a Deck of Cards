@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int gcd(int x, int y) {
+        return x == 0 ? y : gcd(y%x, x);
+    }
+    bool hasGroupsSizeX(vector<int>& deck) {
+        if (deck.size() <= 1) {
+            return false;
+        }
+        std::unordered_map<int,int> map;
+        for (int i = 0; i < deck.size(); ++i) {
+            map[deck[i]]++;
+        }
+        int g = -1;
+        for (auto it = map.begin(); it != map.end(); ++it) {
+            if (g == -1) {
+                g = it -> second;
+            } else {
+                g = gcd(g,it->second);
+            }
+        }
+        return g>=2;
+    }
+};
