@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> sortArrayByParity(vector<int>& A) {
+        vector<int> ans(A.size());
+        int count = 0;
+        for (int i = 0; i < A.size(); ++i) {
+            if (A[i] % 2 == 0) {
+                ans[count++] = A[i];
+            }
+        }
+        int count2 = count;
+        for (int i = 0; i < A.size(); ++i) {
+            if (A[i] % 2 == 1) {
+                ans[count2++] = A[i];
+            }
+        }
+        return ans;
+    }
+};
