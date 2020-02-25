@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool validMountainArray(vector<int>& A) {
+        if(!A.size()){return false;}
+        bool isInc = false, isDec = false;
+        int i = 0;
+        while (i<A.size()-1) {
+            if (A[i+1]>A[i]) {
+                i++;
+                isInc = true;
+            } else {
+                break;
+            }
+        }
+        while (i<A.size()-1) {
+            if (A[i+1]<A[i]) {
+                i++;
+                isDec = true;
+            } else {
+                break;
+            }
+        }
+        return isInc&&isDec&&(i == A.size()-1);
+    }
+};
