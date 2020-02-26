@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& A) {
+        vector<int> ans(A.size(), 0);
+        int ansIndex = A.size()-1;
+        int front = 0, back = A.size() - 1;
+        for (int i = 0; i < A.size(); ++i) {
+            if (abs(A[front]) < abs(A[back])) {
+                ans[ansIndex] = A[back]*A[back];
+                back--;
+            } else {
+                ans[ansIndex] = A[front]*A[front];
+                front++;
+            }
+            ansIndex--;
+        }
+        return ans;
+    }
+};
