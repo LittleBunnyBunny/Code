@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string mostCommonWord(string paragraph, vector<string>& banned) {
+        //pre-process
+        for (int i = 0; i < paragraph.size(); ++i) {
+            if (!isalpha(paragraph[i])) {
+                paragraph[i] = ' ';
+            } else {
+                paragraph[i] = tolower(paragraph[i]);
+            }
+        }
+        
+        //split paragraph into words and store frequency 
+        istringstream input_string(paragraph);
+        unordered_map<string,int> map;
+        while (input_string) {
+            string word;
+            input_string >> word;
+            if (word != "") {
+                map[word]++;
+            }
+        }
+        
+        unordered_set<string> banned_set(banned.begin(), banned.end());
+        string most_common;
+        int max_freq = -1;
+        for (auto it : map) {
+            if (it.second > max_freq && banned_set.find(it.first) == banned_set.end()) {
+                most_common = it.first;
+                max_freq = it.second;
+            }
+        }
+        return most_common;
+    }
+};
