@@ -1,0 +1,23 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        std::unordered_set<ListNode*> set;
+        for (ListNode* node = headA; node != NULL; node = node -> next) {
+            set.insert(node);
+        }
+        for (ListNode* node = headB; node != NULL; node = node -> next) {
+            if(set.count(node)) {
+                return node;    
+            }
+        }
+        return NULL;
+    }
+};
