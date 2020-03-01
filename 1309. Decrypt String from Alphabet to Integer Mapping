@@ -3,7 +3,7 @@ public:
     string freqAlphabets(string s) {
         std::string ans = {};
         for (int i = 0; i < s.size(); ++i) {
-            if (s[i+2] < s.size() && s[i+2] == '#') {
+            if (i+2 < s.size() && s[i+2] == '#') {
                 ans += stoi(s.substr(i,2)) - 10 + 'j';
                 i += 2;
             } else {
