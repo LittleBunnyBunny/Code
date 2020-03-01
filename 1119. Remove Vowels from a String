@@ -1,0 +1,12 @@
+class Solution {
+public:
+    string removeVowels(string S) {
+        
+        for(auto it = S.begin(); it != S.end(); ++it) {
+            if (*it == 'a' || *it == 'e' || *it == 'i' || *it == 'o' || *it == 'u') {
+                S.erase(it--);
+            }    
+        }
+        return S;
+    }
+};
