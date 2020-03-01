@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void reverse_word (string& s, int start, int stop) {
+        for (int i = 0; i < (stop-start)/2; ++i) {
+            swap(s[i+start], s[stop - i - 1]);
+        }
+    }
+    int start;
+    string reverseWords(string s) {
+        int index = 0;
+        for (index; index < s.size(); ++index) {
+            if (s[index] == ' ') {
+                index++;
+            } else {
+                start = index;
+                while (s[index] != ' ' && index < s.size()) {
+                    index++;
+                }                
+                reverse_word (s, start, index);
+            }
+        }
+        return s;
+    }
+};
