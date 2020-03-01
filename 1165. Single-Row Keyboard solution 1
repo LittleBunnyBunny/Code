@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int calculateTime(string keyboard, string word) {
+        std::unordered_map<char, int> map;
+        for (int i = 0; i < keyboard.size(); ++i) {
+            map[keyboard[i]] = i;
+        }
+        int ans = 0, curr_pos = 0, init_pos = 0;
+        for (int i = 0; i < word.size(); ++i) {
+            curr_pos = map[word[i]];
+            ans += abs(curr_pos - init_pos);
+            init_pos = curr_pos;
+        }
+        return ans;
+    }
+};
