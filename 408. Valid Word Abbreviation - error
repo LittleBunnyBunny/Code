@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool validWordAbbreviation(string word, string abbr) {
+        if (word.empty() || abbr.empty()) {
+            return -1;
+        }
+        if (word.size() == 1 && abbr.size() == 1) {
+            if (word.compare(abbr) != 0) {
+                return false;
+            } else if (abbr.compare("1") == 0) {
+                return true;
+            }
+        } 
+        int i = 0,count = 0, count_temp = 0;
+        string count_str = "";
+        while ((i+count) < word.size()) {
+            cout << 
+            if (word[i + count] == abbr[i + count_temp]) {
+                //cout << word[i + count] << abbr[i + count_temp] << endl;
+                ++i;
+                continue;
+            } else if (!isalpha(abbr[i + count_temp])) {
+                count_str = "";
+                while (!isalpha(abbr[i + count_temp])) {
+                    count_str = count_str + abbr[i + count_temp];
+                    ++count_temp;
+                }
+                count += atoi(count_str.c_str());
+                cout << count << endl;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+};
