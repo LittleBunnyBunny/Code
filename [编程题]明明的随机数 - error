@@ -1,0 +1,20 @@
+#include<iostream>
+#include<set>
+using namespace std;
+
+int main () {
+    int count_num;
+    while ( cin >> count_num ) {
+        int num;
+        set<int> my_set;
+        //cout << count_num;
+        for (int i = 0; i < count_num; ++i) {
+            cin >> num;
+            my_set.insert(num);
+        }
+        for (auto it = my_set.begin(); it != my_set.end(); ++it) {
+            cout << *it << endl;
+        }
+    }
+    return 0;
+}
