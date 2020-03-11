@@ -1,0 +1,18 @@
+#include<iostream>
+using namespace std;
+
+int main () {
+    int hex_num;
+    while ( cin >> hex_num ) {
+        int ans,i;
+        for (i = 0; i < hex_num.size(); ++i) {
+            if ( '0' < hex_num[i] < '9' ) {
+                ans += (hex_num[i] - '0') * pow(16,i);
+            } else if ( 'A' < hex_num[i] < 'F' ) {
+                ans += (hex_num[i] - 'A') * pow(16,i);
+            }
+            cout << ans << endl;
+        }
+    }
+    return 0;
+}
