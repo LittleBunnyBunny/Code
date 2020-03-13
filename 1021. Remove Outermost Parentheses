@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string removeOuterParentheses(string S) {
+        queue<char> my_queue;
+        if (S.size () < 1) {
+            return "";
+        }
+        string res = "";
+        for (int i = 0; i < S.size(); ++i) {
+            if (S[i] == '(') {
+                if (!my_queue.empty()) {
+                    my_queue.push(S[i]);
+                    res += S[i];
+                } else {
+                    my_queue.push(S[i]);       
+                }
+            }
+            else if (S[i] == ')') {
+                my_queue.pop();
+                if (!my_queue.empty()) {
+                    res += S[i];
+                }
+            }
+        }
+        return res;
+    }
+};
