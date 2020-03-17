@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    void DFS (TreeNode* root, vector<int>& my_vector) {
+        if (root == NULL) {
+            return;
+        }
+        DFS(root -> left, my_vector);
+        my_vector.push_back(root -> val);
+        DFS(root -> right, my_vector);
+    }
+    
+public:
+    bool isUnivalTree(TreeNode* root) {
+        if (root == NULL) {
+            return 1;
+        }
+        vector<int> my_vector;
+        DFS(root, my_vector);
+        int num = my_vector[0];
+        for (auto ele:my_vector) {
+            if (ele != num) {
+                return 0;
+            }
+        }
+        return 1;
+    }
+};
