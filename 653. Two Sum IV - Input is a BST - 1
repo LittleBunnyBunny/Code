@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    void DFS (TreeNode* root, int k, vector<int>& my_vector) {
+        if (root == NULL) {
+            return;
+        } 
+        DFS(root -> left, k, my_vector);
+        my_vector.push_back(root -> val);    
+        DFS(root -> right, k, my_vector);
+    }
+    
+public:
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> my_vector;
+        unordered_map<int, int> my_map;
+        DFS (root, k, my_vector);
+        bool ans;
+        for (int i = 0; i < my_vector.size(); ++i) {
+            if (my_map.count(k - my_vector[i])) {
+                return true;
+            }
+            my_map[my_vector[i]] = 1;
+        }
+        return false;
+    }
+};
+
+
