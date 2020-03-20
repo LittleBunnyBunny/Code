@@ -1,0 +1,32 @@
+class Solution {
+    string get_key(int n, int color) {
+        return to_string(n) + ' ' + to_string(color);
+    }
+    int paint_cost (int n, int color, vector<vector<int>>& costs,         unordered_map<string, int> memo) {
+        if (memo.count(get_key(n, color))){// != memo.end()) {
+            return memo[get_key(n, color)];
+        }
+        int total_cost = costs[n][color];
+        if (n == costs.size() - 1) {
+            return total_cost;
+        } else if (color == 0) {
+            total_cost += min(paint_cost(n + 1, 1, costs, memo), paint_cost(n + 1, 2, costs, memo));
+        } else if (color == 1) {
+            total_cost += min(paint_cost(n + 1, 0, costs, memo), paint_cost(n + 1, 2, costs, memo));
+        } else {
+            total_cost += min(paint_cost(n + 1, 0, costs, memo), paint_cost(n + 1, 1, costs, memo));
+        }
+        memo[get_key(n ,color)] = total_cost;
+        return total_cost;
+    }
+public:
+    int minCost(vector<vector<int>>& costs) {
+        if (costs.size() == 0) {
+            return 0;
+        }
+        int ans;
+        unordered_map<string, int> memo;
+        ans = min(paint_cost(0, 0, costs, memo), min(paint_cost(0, 1, costs, memo), paint_cost(0, 2, costs, memo))); 
+        return ans;
+    }
+};
