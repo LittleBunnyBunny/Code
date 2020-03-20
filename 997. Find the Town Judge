@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int findJudge(int N, vector<vector<int>>& trust) {
+        if (N == 1) {
+            return 1;
+        }
+        if (trust.size() < N-1) {
+            return -1;
+        }
+        vector<int> in_trust;
+        in_trust.resize(N+1);
+        vector<int> out_trust;
+        out_trust.resize(N+1);
+        for (auto ele:trust) {
+            out_trust[ele[0]]++;
+            in_trust[ele[1]]++;
+        }
+        for (int i = 0; i <= N; ++i) {
+            if((in_trust[i] == N-1) && (out_trust[i] == 0)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
