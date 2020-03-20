@@ -1,0 +1,23 @@
+class Solution {
+    int each_step (int i, int n, vector<int>& memo) {
+        if (i > n) {
+            return 0;
+        }
+        if (i == n) {
+            return 1;
+        }
+        if (memo[i] > 0) {
+            return memo[i];
+        }
+        memo[i] = each_step(i + 1, n, memo) + each_step(i + 2, n, memo);
+        return memo[i];
+    }
+    
+public:
+    int climbStairs(int n) {
+        vector<int> memo;
+        memo.resize(n + 1);
+        int ans = each_step(0, n, memo);
+        return ans;
+    }
+};
