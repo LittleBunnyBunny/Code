@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    void inorder (TreeNode* node, vector<int>& my_vector) {
+        if (node == NULL) {
+            return;
+        }
+        my_vector.push_back(node -> val);
+        inorder(node -> left, my_vector);
+        inorder(node -> right, my_vector);
+    }
+    
+public:
+    int closestValue(TreeNode* root, double target) {
+        vector<int> my_vector;
+        inorder(root, my_vector);
+        map<double, int> my_map;
+        for (int i = 0; i < my_vector.size(); ++i) {
+            my_map[abs(my_vector[i] - target)] = my_vector[i];
+        }
+        return my_map.begin() -> second;
+    }
+};
+
+
+
+
+
+
+
+
+
