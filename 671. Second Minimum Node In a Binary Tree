@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    void DFS (TreeNode* root, vector<int>& my_vector) {
+        if (root == NULL) {
+            return;
+        }
+        my_vector.push_back(root -> val);
+        DFS(root -> left, my_vector);
+        DFS(root -> right, my_vector);
+    }
+public:
+    int findSecondMinimumValue(TreeNode* root) {
+        vector<int> my_vector;
+        DFS(root, my_vector);
+        for (auto it = my_vector.begin(); it < my_vector.end(); ++it) {
+            if (*it == root -> val) {
+                my_vector.erase(it);
+                --it;
+            }
+        }
+        if (my_vector.size() == 0) {
+            return -1;
+        }
+        long int ans = my_vector[0];
+        for (int i = 0; i < my_vector.size(); ++i) {
+            if (ans > my_vector[i]) {
+                ans = my_vector[i];
+            }   
+        }
+        return ans;
+    }
+};
+
+
+
+
