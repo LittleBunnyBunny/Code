@@ -1,0 +1,32 @@
+/*
+// Employee info
+class Employee {
+public:
+    // It's the unique ID of each node.
+    // unique id of this employee
+    int id;
+    // the importance value of this employee
+    int importance;
+    // the id of direct subordinates
+    vector<int> subordinates;
+};
+*/
+class Solution {
+    unordered_map<int, Employee*> my_map;
+    int dfs (int id) {
+        Employee* employee = my_map[id];
+        int ans = employee -> importance;
+        for (int subid : employee -> subordinates) {
+            ans += dfs(subid);
+        }
+        return ans;
+    }
+    
+public:
+    int getImportance(vector<Employee*> employees, int id) {
+        for (Employee* e : employees) {
+            my_map[e -> id] = e;
+        }
+        return dfs(id);
+    }
+};
