@@ -1,0 +1,33 @@
+class MovingAverage {
+    int size;
+    vector<int> my_vector;
+
+public:
+    /** Initialize your data structure here. */
+    MovingAverage(int size) {
+        this -> size = size;
+    }
+    
+    double next(int val) {
+        my_vector.push_back(val);
+        double sum = 0;
+        int i;
+        if (my_vector.size() > size) {
+            i = my_vector.size() - size;            
+        } else {
+            i = 0;
+        }
+        for (; i < my_vector.size(); ++i) {
+            sum += my_vector[i];
+            //cout << *it << endl;
+        }
+        cout << sum << endl;
+        return sum / static_cast<double>(min(size, static_cast<int>(my_vector.size())));
+    }
+};
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * MovingAverage* obj = new MovingAverage(size);
+ * double param_1 = obj->next(val);
+ */
