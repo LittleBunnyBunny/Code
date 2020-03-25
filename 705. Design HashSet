@@ -1,0 +1,45 @@
+class MyHashSet {
+    const int MAX_SIZE = 769;
+    vector<list<int>> data; 
+    
+    size_t bucket_index (int key) {
+        return key % MAX_SIZE;
+    }
+    
+public:
+    /** Initialize your data structure here. */
+    MyHashSet() {
+        
+    }
+    
+    void add(int key) {
+        size_t bucket = bucket_index(key);
+        if (bucket >= data.size()) {
+            data.resize(bucket + 1);
+        }
+        if (find(data[bucket].begin(), data[bucket].end(), key) == data[bucket].end()) {
+            data[bucket].push_back(key);           
+        }
+    }
+    
+    void remove(int key) {
+        size_t bucket = bucket_index(key);
+        if (bucket < data.size()) {
+            data[bucket].remove(key);
+        }
+    }
+    
+    /** Returns true if this set contains the specified element */
+    bool contains(int key) {
+        size_t bucket = bucket_index(key);
+        return (bucket < data.size()) && (find(data[bucket].begin(), data[bucket].end(), key) != data[bucket].end());
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */
