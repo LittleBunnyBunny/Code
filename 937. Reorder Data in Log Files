@@ -1,0 +1,26 @@
+class Solution {
+    bool isDigit (string str) {
+        int index = str.find(' ');
+        return isdigit(str[index + 1]);
+    }
+public:
+    vector<string> reorderLogFiles(vector<string>& logs) {
+        int fast = logs.size() - 1, slow = logs.size() - 1;
+        while (fast >= 0) {
+            if (isDigit(logs[fast])) {
+                swap(logs[fast], logs[slow]);
+                --slow;
+            }    
+            --fast;
+        }
+        
+        sort(logs.begin(), logs.begin() + slow + 1,[](string s1, string s2) {
+            int index_1 = s1.find(' ');
+            int index_2 = s2.find(' ');
+            s1 = s1.substr(index_1 + 1);
+            s2 = s2.substr(index_2 + 1);
+            return s1 <= s2;
+        });
+        return logs;
+    }
+};
