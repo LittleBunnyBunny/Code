@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        int index = 0;
+        for (int i = 0; i < words.size() - 1; ++i) {
+            while (words[i][index] == words[i + 1][index]) {
+                ++index;
+            }
+            if (order.find(words[i][index]) > order.find(words[i + 1][index])) {
+                return false;
+            }
+            if (index == words[i + 1].size()) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
