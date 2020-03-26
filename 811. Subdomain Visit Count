@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<string> subdomainVisits(vector<string>& cpdomains) {
+        unordered_map<string, int> my_map;
+        vector<string> ans;
+        for (string s : cpdomains) {
+            int index = s.find(' ');
+            cout << (s.substr(0, index));
+            //atoi( str.c_str() )
+            int num = atoi(s.substr(0, index).c_str()); 
+            //static_cast<int>(s.substr(0, index));
+            string str1 = s.substr(index + 1);
+            my_map[str1] += num;
+            int count_str = count(str1.begin(), str1.end(), '.');
+            //cout << count_str;
+            while (count_str > 0) {
+                index = str1.find('.');
+                string str2 = str1.substr(index + 1);
+                my_map[str2] += num;
+                str1 = str2;
+                --count_str;
+            }
+        }
+        for (auto it = my_map.begin(); it != my_map.end(); ++it) {
+            ans.push_back(to_string(it -> second) + ' ' + it -> first);
+        }
+        return ans;
+    }
+};
