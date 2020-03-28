@@ -1,0 +1,12 @@
+class Solution {
+public:
+    int fib(int N) {
+        vector<int> my_vector;
+        my_vector.push_back(0);
+        my_vector.push_back(1);
+        for (int i = 2 ; i <= N; ++i) {
+            my_vector.push_back(my_vector[i-1] + my_vector[i-2]);
+        }
+        return my_vector[N];
+    }
+};
