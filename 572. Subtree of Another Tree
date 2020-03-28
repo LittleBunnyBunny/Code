@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+    string preorder (TreeNode* node, string my_str) {
+        if (node == NULL) {
+            return my_str;
+        }
+        if (node -> left == NULL) {
+            my_str += "#lnull";
+        } else {
+            my_str += '#' + to_string(node -> left -> val);
+        }
+        my_str = preorder(node -> left, my_str);
+        if (node -> right == NULL) {
+            my_str += "#rnull";
+        } else {
+            my_str += '#' + to_string(node -> right -> val);
+        }
+        my_str = preorder(node -> right, my_str);
+        return my_str;
+    }
+    
+public:
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+        if (s == NULL || t == NULL)
+            return s == t;
+        string s_str = '#' + to_string(s -> val);
+        s_str = preorder(s, s_str);
+        string t_str = '#' + to_string(t -> val);
+        t_str = preorder(t, t_str);
+        if (s_str.size() < t_str.size()) {
+            return false;
+        }
+        return s_str.find(t_str) != string::npos;
+    }
+};
