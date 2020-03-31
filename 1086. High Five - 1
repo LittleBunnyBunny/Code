@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> highFive(vector<vector<int>>& items) {
+        map<int, vector<int>> my_map;
+        vector<vector<int>> out;
+        for (const auto& item : items) {
+            my_map[item[0]].push_back(item[1]);
+        }
+        for (auto& [student, scores] : my_map) {
+            sort(scores.rbegin(), scores.rend());
+            int sum = 0;
+            for (int i = 0; i < 5; ++i) {
+                sum += scores[i];
+            }
+            out.push_back({student, sum/5});
+        }
+        return out;
+    }
+};
