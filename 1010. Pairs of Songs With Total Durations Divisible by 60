@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int numPairsDivisibleBy60(vector<int>& time) {
+        vector<int> my_vector(60, 0);
+        int cnt = 0;
+        for (auto t : time) {
+            int reminder = t % 60;
+            cnt += my_vector[(60 - reminder) % 60];
+            my_vector[reminder]++;
+        }
+        return cnt;
+    }
+};
