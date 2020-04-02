@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool Find(int target, vector<vector<int>> array) {
+        int row_size = array.size();
+        if (row_size == 0) {
+            return false;
+        }
+        int col_size = array[0].size();
+        if (col_size == 0) {
+            return false;
+        }
+        int row = row_size - 1;
+        int col = 0;
+        while (row >= 0 && col < col_size) {
+            if (array[row][col] < target) {
+                col++;
+            } else if (array[row][col] > target) {
+                row--;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+};
