@@ -1,0 +1,18 @@
+#include<string>
+#include<iostream>
+#include<map>
+using namespace std;
+
+int main () {
+    int cnt;
+    cin >> cnt;
+    map<int, int> my_map;
+    int key, val;
+    while (cnt-- && cin >> key >> val) {
+        my_map[key] += val;
+    }
+    for (auto it = my_map.begin(); it != my_map.end(); ++it) {
+        cout << it -> first << ' ' << it -> second << endl;
+    }
+    return 0;
+}
