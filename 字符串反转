@@ -1,0 +1,13 @@
+#include<string>
+#include<iostream>
+using namespace std;
+
+int main () {
+    char input_char;
+    string input_str = "";
+    while (cin >> input_char) {
+        input_str = input_char + input_str;
+    }
+    cout << input_str;
+    return 0;
+}
