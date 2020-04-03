@@ -1,0 +1,14 @@
+#include<string>
+#include<iostream>
+using namespace std;
+int main () {
+    int input;
+    cin >> input;
+    string input_str = to_string(input);
+    int size = input_str.size();
+    while (size > 0) {
+        cout << input_str[size -1];
+        --size;
+    }
+    return 0;
+}
