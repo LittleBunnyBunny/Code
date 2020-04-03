@@ -1,0 +1,14 @@
+#include<iostream>
+#include<string>
+#include<unordered_set>
+using namespace std;
+
+int main () {
+    char in_char;
+    unordered_set<char> my_set;
+    while (cin >> in_char) {
+        my_set.insert(in_char);
+    }    
+    cout << my_set.size();
+    return 0;
+}
