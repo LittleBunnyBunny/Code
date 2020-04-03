@@ -1,0 +1,18 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+int main () {
+    int input, out;
+    string out_str = "";
+    cin >> input;
+    string input_str = to_string(input);
+    int size = input_str.size();
+    for (int i = size - 1; i >= 0; --i) {
+        if (out_str.find(input_str[i]) == string::npos) {
+            out_str = out_str + input_str[i];
+        }
+    }
+    cout << out_str << endl;
+    return 0;
+}
