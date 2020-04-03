@@ -1,0 +1,21 @@
+#include<string>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+int main () {
+    int cnt;
+    while(cin >> cnt){
+        string str;
+        vector<string> my_vector;
+        while (cnt--) {
+            cin >> str;
+            my_vector.push_back(str);
+        }
+        sort(my_vector.begin(), my_vector.end());
+        for (auto it = my_vector.begin(); it != my_vector.end(); ++it) {
+            cout << *it << endl;
+        }
+    }
+    return 0;
+}
