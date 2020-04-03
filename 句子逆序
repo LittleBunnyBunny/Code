@@ -1,0 +1,18 @@
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+int main () {
+    string in_str = "";
+    vector<string> my_vector;
+    while (cin >> in_str) {
+        my_vector.push_back(in_str);
+    }
+    int size = my_vector.size();
+    for (int i = size - 1; i >= 0; --i) {
+        cout << my_vector[i] << ' ';
+    }
+    cout << endl;
+    my_vector.clear();
+    return 0;
+}
