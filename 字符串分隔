@@ -1,0 +1,39 @@
+#include<string>
+#include<iostream>
+using namespace std;
+
+int main () {
+    string input_str;
+    int cnt = 0;
+    while (cin >> input_str) {
+        int out_size = static_cast<int>(input_str.size()) / 8;
+        int cur = 0;
+        while (cur < out_size) {
+            for (int i = 0; i < 8; ++i) {
+                cout << input_str[i + 8 * cur];
+            }
+            ++cur;
+            cout << endl;
+        }
+        int reminder = input_str.size() % 8;
+        int i = 0;
+        while (i < reminder) {
+            cout << input_str[8 * out_size + i];
+            ++i;
+        }
+        if (reminder != 0) {
+            int rem = 8 - reminder;
+            i = 0;
+            while (i < rem) {
+                cout << '0';
+                ++i;
+            }
+            cout << endl;
+        }
+    }
+    return 0;
+}
+
+
+
+
