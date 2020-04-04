@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int row = grid.size();
+        if (row == 0) {
+            return 0;
+        }
+        int col = grid[0].size();
+        int num_islands = 0;
+        queue<pair<int,int>> my_queue;
+        for (int r = 0; r < row; ++r) {
+            for (int c = 0; c < col; ++c) {
+                if (grid[r][c] == '1') {
+                    my_queue.push(make_pair(r,c));
+                    num_islands++;
+                    while (!my_queue.empty()) {
+                        int cur_r = my_queue.front().first;
+                        int cur_c = my_queue.front().second;
+                        my_queue.pop();
+                        if (cur_r - 1 >= 0 && grid[cur_r - 1][cur_c] == '1') {
+                            my_queue.push(make_pair(cur_r - 1, cur_c)); 
+                            grid[cur_r - 1][cur_c] = '0';
+                        }
+                        if (cur_r + 1 < row && grid[cur_r + 1][cur_c] == '1') {
+                            my_queue.push(make_pair(cur_r + 1, cur_c));
+                            grid[cur_r + 1][cur_c] = '0';
+                        }
+                        if (cur_c - 1 >= 0  && grid[cur_r][cur_c - 1] == '1') {
+                            my_queue.push(make_pair(cur_r, cur_c - 1));
+                            grid[cur_r][cur_c - 1] = '0';
+                        }
+                        if (cur_c + 1 < col && grid[cur_r][cur_c + 1] == '1') {
+                            my_queue.push(make_pair(cur_r, cur_c + 1));
+                            grid[cur_r][cur_c + 1] = '0';
+                        }
+                    }
+                }
+            }
+        }
+        return num_islands;
+    }
+};
