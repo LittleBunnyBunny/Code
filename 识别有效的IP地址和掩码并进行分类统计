@@ -1,0 +1,80 @@
+#include<string>
+#include<iostream>
+#include<vector>
+using namespace std;
+vector<vector<int>> vec;
+vector<int> tmp;
+vector<int> res(7,0);
+
+void getstr (string str) {
+    string input_str;
+    while (cin >> input_str) {
+        int flag = 0;
+        int size = input_str.size();
+        int num = 0;
+        for (int i = 0; i < size; ++i) {
+            if (i >= 1 && input_str[i] == '.' && input_str[i - 1] == '.') {
+                ++res[5];
+                flag = 1;
+                break;
+            } 
+            if (input_str[i] != '.' && input_str[i] != '~') {
+                num = num * 10 + (input_str[i] - '0');
+            } else {
+                if (num > 255) {
+                    ++res[5];
+                    flag = 1;
+                    break;
+                }
+                tmp.push_back(num);
+                num = 0;
+            }
+        }
+        if(flag) continue;
+        tmp.push_back(num);
+        vec.push_back(tmp);
+        tmp.clear();
+    }
+}
+
+bool ismask(vector<int> mask) {
+    if((mask[4] == 254 || mask[4] == 252 || mask[4] == 248 || mask[4] == 240 || mask[4] == 224 
+       || mask[4] == 192 || mask[4] == 128 || mask[4] == 0)
+       && (mask[5] == 0 && mask[6] == 0 && mask[7] == 0)) return true;
+    if(mask[4] == 255 
+       && (mask[5] == 254 || mask[5] == 252 || mask[5] == 248 || mask[5] == 240 || mask[5] == 224 
+       || mask[5] == 192 || mask[5] == 128 || mask[5] == 0) 
+       && (mask[6] == 0 && mask[7] == 0)) return true;
+    if (mask[4] == 255 && mask[5] == 255 
+       && (mask[6] == 254 || mask[6] == 252 || mask[6] == 248 || mask[6] == 240 || mask[6] == 224
+       || mask[6] == 192 || mask[6] == 128 || mask[6] == 0)
+       && mask[7] == 0) return true;
+    if ((mask[4] == 255 && mask[5] == 255 && mask[6] == 255)
+       && (mask[7] == 254 || mask[7] == 252 || mask[7] == 248 || mask[7] == 240 || mask[7] == 224
+       || mask[7] == 192 || mask[7] == 128 || mask[7] == 0)) return true;
+    return false;
+}
+
+void judge (void) {
+    int size = vec.size();
+    for (int i = 0; i < size; ++i) {
+        if(ismask(vec[i]) == false) {res[5]++; continue;}
+        if(vec[i][0] >= 1 && vec[i][0] < 127) res[0]++;
+        if(vec[i][0] >= 128 && vec[i][0] < 192) res[1]++;
+        if(vec[i][0] >= 192 && vec[i][0] < 224) res[2]++;
+        if(vec[i][0] >= 224 && vec[i][0] < 240) res[3]++;
+        if(vec[i][0] >= 240 && vec[i][0] < 256) res[4]++;
+        if(vec[i][0] == 10
+          || (vec[i][0] == 172 && vec[i][1] >= 16 && vec[i][1] < 32)
+          || (vec[i][0] == 192 && vec[i][1] >= 168 && vec[i][1] < 169)) res[6]++;
+    }
+}
+
+int main() {    
+    string str;
+    getstr(str);
+    judge();
+    cout << res[0] << ' ' << res[1] << ' ' << res[2] << ' ' << res[3]  << ' ' <<res[4]  << ' ' << res[5] << ' ' << res[6] << endl;
+    return 0;
+}
+
