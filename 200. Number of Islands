@@ -1,0 +1,31 @@
+class Solution {
+    void dfs(vector<vector<char>>& grid, int cur_row, int cur_col) {
+        int row = grid.size();
+        int col = grid[0].size();
+        grid[cur_row][cur_col] = '0';
+        if(cur_row - 1 >= 0 && grid[cur_row - 1][cur_col] == '1') dfs(grid, cur_row - 1, cur_col);
+        if(cur_row + 1 < row && grid[cur_row + 1][cur_col] == '1') dfs(grid, cur_row + 1, cur_col);
+        if(cur_col - 1 >= 0 && grid[cur_row][cur_col - 1] == '1') dfs(grid, cur_row, cur_col - 1);
+        if(cur_col + 1 < col && grid[cur_row][cur_col + 1] == '1') dfs(grid, cur_row, cur_col + 1);
+    }
+    
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        int num_islands = 0;
+        int row = grid.size();
+        if (!row) {
+            return 0;
+        }
+        int col = grid[0].size();
+        for (int cur_row = 0; cur_row < row; ++cur_row) {
+            for (int cur_col = 0; cur_col < col; ++cur_col) {
+                if (grid[cur_row][cur_col] == '1') {
+                    ++num_islands;
+                    cout << cur_row << ' ' << cur_col;
+                    dfs(grid, cur_row, cur_col);
+                }
+            }
+        }
+        return num_islands;    
+    }
+};
