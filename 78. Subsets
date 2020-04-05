@@ -1,0 +1,19 @@
+class Solution {
+     void helper(int begin, vector<int>& nums, vector<int>& subset, vector<vector<int>> & result) {
+         for (int i = begin; i < nums.size(); ++i) {
+             subset.push_back(nums[i]);
+             result.push_back(subset);
+             helper(i + 1, nums, subset, result);
+             cout << subset.back() << ' ';
+             subset.pop_back();
+         }
+     }
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> subset;
+        vector<vector<int>> result;
+        result.push_back(subset);
+        helper(0, nums, subset, result);
+        return result;
+    }
+};
