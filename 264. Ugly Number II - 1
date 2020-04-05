@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> my_vector;
+        priority_queue<long int, vector<long int>,std::greater<long int>> my_queue;
+        set<long int> seen_set;
+        my_queue.push(1L);
+        seen_set.insert(1L);
+        vector<int> primes;
+        primes.push_back(2);
+        primes.push_back(3);
+        primes.push_back(5);
+        for (int i = 0; i < 1690; ++i) {
+            my_vector.push_back(my_queue.top());
+            my_queue.pop();
+            for (long int ele : primes) {
+                if (!seen_set.count(ele * my_vector[i])) {
+                    my_queue.push(ele * my_vector[i]);
+                    seen_set.insert(ele * my_vector[i]);
+                }
+            }
+        }
+        return my_vector[n - 1];
+    }
+};
