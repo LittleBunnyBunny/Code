@@ -1,0 +1,42 @@
+class Solution {
+    bool isvalid (vector<char>& cur) {
+        int valid = 0;
+        for (int i = 0; i < cur.size(); ++i) {
+            if (cur[i] =='(') {
+                valid++;
+            } else {
+                valid--;
+            }
+            if (valid < 0) {
+                return false;
+            }
+        }
+        return (valid == 0);    
+    }
+    
+    void generate_all(vector<char>& cur, vector<string>& ans, int pos, int max) {
+        if (pos == 2 * max) {
+            if (isvalid(cur)) {
+                string temp;
+                for (int i = 0; i < cur.size(); ++i) {
+                    temp += cur[i];
+                }
+                ans.push_back(temp);
+            }
+        } else {
+            cur[pos] = '(';
+            generate_all(cur, ans, pos + 1, max);
+            cur[pos] = ')';
+            generate_all(cur, ans, pos + 1, max);
+        }
+    }
+    
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+        vector<char> cur;
+        cur.resize(n * 2);
+        generate_all(cur, ans, 0, n);
+        return ans;
+    }
+};
