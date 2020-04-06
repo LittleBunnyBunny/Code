@@ -1,0 +1,22 @@
+class Solution {
+     int k;
+     void helper(int begin, vector<int>& nums, vector<int>& subset, vector<vector<int>> & result) {
+         if (k == subset.size()) {
+             result.push_back(subset);
+         }
+         for (int i = begin; i < nums.size(); ++i) {
+             subset.push_back(nums[i]);
+             helper(i + 1, nums, subset, result);
+             subset.pop_back();
+         }
+     }
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<int> subset;
+        vector<vector<int>> result;
+        for (k = 0; k <= nums.size(); ++k) {
+            helper(0, nums, subset, result);            
+        }
+        return result;
+    }
+};
