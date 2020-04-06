@@ -1,0 +1,18 @@
+class Solution {
+    bool canJumpFromPosition(int position, vector<int>& nums) {
+        if (position == nums.size() - 1) {
+            return true;
+        }
+        int max_jump = min(position + nums[position], static_cast<int>(nums.size()  - 1));
+        for (int next = position + 1; next <= max_jump; ++next) {
+            if(canJumpFromPosition(next, nums)) {
+                return true;
+            }
+        }
+        return false;
+    }
+public:
+    bool canJump(vector<int>& nums) {
+        return canJumpFromPosition(0, nums);
+    }
+};
