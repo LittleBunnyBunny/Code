@@ -1,0 +1,27 @@
+class Solution {
+    bool can_jump_from(int position, vector<int>& nums, vector<int> memo) {
+        if (memo[position] != 2) {
+            return memo[position];
+        }
+
+        int max_jump = min(static_cast<int>(nums.size() - 1), position + nums[position]);
+        for (int next = position + 1; next <= max_jump; ++next) {
+            if (can_jump_from(next, nums, memo)) {
+                memo[position] = 1;
+                return true; 
+            }
+        }
+        memo[position] = 0;
+        return false;
+    }
+
+public:
+    bool canJump(vector<int>& nums) {
+        vector<int> memo;
+        for (int i = 0; i < nums.size() - 1; ++i) {
+            memo.push_back(2);
+        }
+        memo.push_back(1);
+        return can_jump_from(0, nums, memo);
+    }
+};
