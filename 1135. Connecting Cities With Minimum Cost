@@ -1,0 +1,59 @@
+class Solution {
+    int find_min (vector<int>& key, vector<bool>& mstSet) {
+        int min = INT_MAX;
+        int min_index;
+        for (int i = 0; i < key.size(); ++i) {
+            if (key[i] < min && mstSet[i] == false) {
+                min_index = i;
+                min = key[i];
+            }
+        }
+        return min_index;    
+    }
+    
+    void primMST (vector<int>& key, vector<vector<int>>& graph, vector<vector<int>>& connections) {
+        vector<bool> mstSet(key.size(), false);
+        key[0] = 0;//connections[0][0];
+        int u;
+        for (int count = 0; count < connections.size(); ++count) {
+            u = find_min(key, mstSet);
+            mstSet[u] = true;
+            for (int i = 0; i < graph.size(); ++i) {
+                if (graph[u][i] && mstSet[i] == false && graph[u][i] < key[i]) {
+           key[i] = graph[u][i];
+                }
+            }
+        }
+    }
+    
+public:
+    int minimumCost(int N, vector<vector<int>>& connections) {
+        if (N < 2) {
+            return -1;
+        }
+        vector<vector<int>> graph(N, vector<int>(N, 0));
+        for (int i = 0; i < connections.size(); ++i) {
+            graph[connections[i][0] - 1][connections[i][1] - 1] = connections[i][2];
+            graph[connections[i][1] - 1][connections[i][0] - 1] = connections[i][2];
+        }
+        /*
+        for (int i = 0; i < graph.size() ; ++i) {
+            for (int j = 0; j < graph[0].size(); ++j) {
+                cout << graph[i][j] << ',';
+            }
+            cout << endl;
+        }
+        */
+        vector<int> key(N, INT_MAX);
+        primMST(key, graph, connections);
+        int ans = 0;
+        for (int i = 0; i < N; ++i) {
+            if (key[i] == INT_MAX) {
+                return -1;
+            }
+            ans += key[i];
+            cout << key[i] << ',';
+        }
+        return ans;
+    }
+};
