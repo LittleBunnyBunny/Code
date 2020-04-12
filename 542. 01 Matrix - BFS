@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<vector<int>> updateMatrix(vector<vector<int>>& matrix) {
+        vector<vector<int>> dist(matrix.size(), vector<int>(matrix[0].size()));
+        if (matrix.size() == 0 || matrix[0].size() == 0) {
+            return dist;
+        }
+        for (int row = 0; row < matrix.size(); ++row) {
+            for (int col = 0; col < matrix[0].size(); ++col) {
+                if (matrix[row][col] == 1) {
+                    queue<pair<int, int>> my_queue;
+                    my_queue.push(make_pair(row, col));
+                    int cur = 0;
+                    while (!my_queue.empty()) {
+                        ++cur;
+                        bool found_zero = false;
+                        int size = my_queue.size();
+                        for (int i = 0; i < size; ++i) {
+                            int r = my_queue.front().first;
+                            int c = my_queue.front().second;
+                            my_queue.pop();
+                            if ((r - 1 >= 0) && matrix[r - 1][c] == 0) {found_zero = true; break;}
+                            if ((c - 1 >= 0) && matrix[r][c - 1] == 0) {found_zero = true; break;}
+                            if ((r + 1 < matrix.size()) && matrix[r + 1][c] == 0) {found_zero = true; break;} 
+                            if ((c + 1 < matrix[0].size()) && matrix[r][c + 1] == 0) {found_zero = true; break;}
+                            else {
+                                if (r - 1 >= 0) {my_queue.push(make_pair(r - 1, c));}
+                                if (c - 1 >= 0) {my_queue.push(make_pair(r, c - 1));}
+                                if (r + 1 < matrix.size()) {my_queue.push(make_pair(r + 1, c));}
+                                if (c + 1 < matrix[0].size()) {my_queue.push(make_pair(r,c + 1));}
+                            }
+                        }
+                        if (found_zero) {break;}
+                    }
+                    dist[row][col] = cur;
+                } else {
+                    dist[row][col] = 0;
+                }
+            }
+        }
+        return dist;
+    }
+};
