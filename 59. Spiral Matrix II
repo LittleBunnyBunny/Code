@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>> generateMatrix(int n) {
+        vector<vector<int>> ans(n, vector<int>(n));
+        int r = 0, c = 0, row = n - 1, col = n - 1;
+        int num = 1;
+        while (r <= row && c <= col) {
+            for (int i = r; i <= row; ++i) {
+                ans[r][i] = num;
+                ++num;
+            }
+            ++r;
+            for (int i = r; i <= col; ++i) {
+                ans[i][col] = num;
+                ++num;
+            }
+            --col;
+            if (r <= row) {
+                for (int i = col; i >= c; --i) {
+                    ans[row][i] = num;
+                    ++num;
+                }
+                --row;
+            }   
+            if (c <= col) {
+                for (int i = row; i >= r; --i) {
+                    ans[i][c] = num;
+                    ++num;
+                }
+                ++c;
+            }
+        }
+        return ans;
+    }
+};
