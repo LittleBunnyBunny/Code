@@ -1,0 +1,91 @@
+class Solution {
+public:
+    static const int ALPHA_SIZE = 26;
+    struct TrieNode {
+        struct TrieNode *children[ALPHA_SIZE];
+        bool isEndOfWord;
+    };
+    
+    struct TrieNode *getNode (void) {
+        struct TrieNode* pNode = new TrieNode;
+        pNode -> isEndOfWord = false;
+        for (int i = 0; i < ALPHA_SIZE; ++i) {
+            pNode -> children[i] = NULL;
+        }
+        return pNode;
+    }
+    
+    void insert (struct TrieNode* root, string key) {
+        struct TrieNode* pCrawl = root;
+        for (int i = 0; i < key.size(); ++i) {
+            int index = key[i] - 'a';
+            if (!pCrawl -> children[index]) {
+                pCrawl -> children[index] = getNode();
+            }
+            pCrawl = pCrawl -> children[index];
+        }
+        pCrawl -> isEndOfWord = true;
+    }
+    
+    bool search (struct TrieNode* root, string key) {
+        struct TrieNode* pCrawl = root;
+        for (int i = 0; i < key.size(); ++i) {
+            int index = key[i] - 'a';
+            if (!pCrawl -> children[index]) {
+                return false;
+            }
+            pCrawl = pCrawl -> children[index];
+        }
+        return (pCrawl != NULL) && (pCrawl -> isEndOfWord == true);
+    }
+    
+    void dfs (struct TrieNode* pCrawl, string substr, vector<string>& sub_ans) {
+        if (pCrawl == NULL) return;
+        if (pCrawl -> isEndOfWord) {
+            sub_ans.push_back(substr);
+            cout << substr << ' ';
+        }
+        for (int i = 0; i < ALPHA_SIZE; ++i) {
+            if (pCrawl -> children[i]) {
+                dfs(pCrawl -> children[i], substr + static_cast<char>(i + 'a'), sub_ans);             
+            }
+        }
+    }
+    
+    vector<string> searchSub (struct TrieNode* root, string substr) {
+        vector<string> sub_ans;
+        struct TrieNode* pCrawl = root;
+        for (int i = 0; i < substr.size(); ++i) {
+            int index = substr[i] - 'a';
+            if (!pCrawl -> children[index]) {
+                return sub_ans;
+            }
+            pCrawl = pCrawl -> children[index];
+        }
+        // DFS and then add substr as prefix. Return vector<string>
+        dfs(pCrawl, substr, sub_ans);
+        return sub_ans;
+    }
+    
+    vector<vector<string>> suggestedProducts(vector<string>& products, string searchWord) {
+        vector<vector<string>> ans;
+        vector<string> sub_ans;
+        struct TrieNode* root = getNode();
+        for (int i = 0; i < products.size(); ++i) {
+            insert (root, products[i]);
+        }
+        for (int i = 1; i <= searchWord.size(); ++i) {
+            sub_ans = searchSub (root, searchWord.substr(0, i));
+            sort(sub_ans.begin(), sub_ans.end());
+            int cnt = 0;
+            vector<string> sub_ans1;
+            for (int j = 0; j < sub_ans.size(); ++j) {
+                if (j < 3) {
+                    sub_ans1.push_back(sub_ans[j]);
+                }
+            }
+            ans.push_back(sub_ans1);
+        }
+        return ans;
+    }
+};
