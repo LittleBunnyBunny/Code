@@ -1,0 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* root, int k) {
+        vector<ListNode*> my_vector;
+        if (root == NULL) {
+            while (k > 0) {
+                my_vector.push_back(NULL);
+                --k;
+            }    
+            return my_vector;
+        }
+        ListNode* cur = root;
+        int length = 0;
+        while (cur) {
+            cur = cur -> next;
+            ++length;
+        }
+        int rem;
+        int num = length / k;
+        if (length < k) {
+            rem = k;
+        } else {
+            rem = length % k;
+        }
+        cout << rem;
+        int count = 0;
+        ListNode* head = new ListNode(0);
+        ListNode* cur_head = head;
+        ListNode* cur_root = root;
+        int temp;
+        while (length >= 0 && cur_root) {
+            if (rem > 0) {temp = num + 1;}
+            else {temp = num;}
+            while (cur_root) {
+                if (count == temp) {
+                    my_vector.push_back(head -> next);
+                    cur_head = head;
+                    count = 0;
+                    break;
+                }
+                cur_head -> next = new ListNode(cur_root -> val);
+                cur_head = cur_head -> next;
+                cur_root = cur_root -> next;
+                ++count;
+            }
+            length -= temp;
+            rem--;
+        }
+        my_vector.push_back(head -> next);
+        while (rem > 0) {
+            my_vector.push_back(NULL);
+            rem--;
+        }
+        return my_vector;
+    }
+};
