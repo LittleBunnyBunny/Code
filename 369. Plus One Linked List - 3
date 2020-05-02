@@ -1,0 +1,38 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public: 
+    int num;
+    int carry;
+    int traverse (ListNode* head) {
+        if (head -> next == NULL) {
+            num = head -> val + 1;
+            head -> val = num % 10;
+            return num / 10;
+        } else {
+            carry = traverse(head -> next);
+            num = head -> val + carry;
+            head -> val = num % 10;
+            carry = num / 10;
+            return carry;
+        }
+    }
+    
+    ListNode* plusOne(ListNode* head) {
+        carry = traverse(head);
+        if (carry) {
+            ListNode* new_head = new ListNode(carry);
+            new_head -> next = head;
+            return new_head;
+        }
+        return head;
+    }
+};
