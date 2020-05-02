@@ -1,0 +1,62 @@
+class PhoneDirectory {
+public:
+/** Initialize your data structure here
+@param maxNumbers - The maximum numbers that can be stored in the phone directory. */
+list<int> assigned, released;
+int current=0;
+int maxNum;
+PhoneDirectory(int maxNumbers) {
+maxNum=maxNumbers;
+}
+
+/** Provide a number which is not assigned to anyone.
+    @return - Return an available number. Return -1 if none is available. */
+int get() {
+    
+    if(released.size()==0)
+    {
+        if(current<maxNum)
+        {
+            assigned.push_back(current);
+        }else
+        {
+            return -1;
+        }
+        
+    }else
+    {
+            int num=released.front();
+            released.pop_front();
+            assigned.push_back(num);
+            return num;
+    }
+    return current++;
+    
+}
+
+/** Check if a number is available or not. */
+bool check(int number) {
+    
+    return (find(assigned.begin(),assigned.end(),number)==assigned.end());
+    
+}
+
+/** Recycle or release a number. */
+void release(int number) {
+    if(find(assigned.begin(),assigned.end(),number)==assigned.end())
+    {
+        return;
+    }
+    released.push_back(number);
+    assigned.erase(find(assigned.begin(),assigned.end(),number));
+    
+}
+};
+
+/**
+ * Your PhoneDirectory object will be instantiated and called as such:
+ * PhoneDirectory* obj = new PhoneDirectory(maxNumbers);
+ * int param_1 = obj->get();
+ * bool param_2 = obj->check(number);
+ * obj->release(number);
+ */
